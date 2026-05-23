@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@上升白垩纪-网站推荐</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ── MiniMax Design Tokens ─────────────────────────────────────── */
     :root {
       /* Colors */
       --ink:           #0a0a0a;
@@ -22,6 +22,7 @@
       --muted:         #a8aab2;
       --on-dark:       #ffffff;
       --coral:         #ff5530;
+      --bar:           #1f1f1f;
       --green:         #1ba673;
       --green-bg:      #e8ffea;
       --footer-bg:     #0a0a0a;
@@ -48,6 +49,7 @@
       --sp-sec:    64px;
       --sp-sec-lg: 80px;
       --sp-hero:   96px;
+      
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -127,8 +129,44 @@
       max-width: 1280px;
       margin: 0 auto;
       padding: var(--sp-sec-sm) var(--sp-md) var(--sp-sec);
+      display: flex;
+      gap: var(--sp-xxl);
+      align-items: flex-start;
     }
-    .sections { display: flex; flex-direction: column; gap: var(--sp-sec); }
+
+    /* ── Sidebar ───────────────────────────────────────────────────── */
+    .sidebar {
+      width: 148px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 32px;
+    }
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-xxs);
+    }
+    .sidebar-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: var(--r-md);
+      transition: background .12s, color .12s;
+      display: block;
+      white-space: nowrap;
+    }
+    .sidebar-link:hover {
+      background: var(--surface-soft);
+      color: var(--ink);
+    }
+    .sidebar-link.active {
+      background: var(--canvas);
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .sections { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--sp-sec); }
 
     /* ── Section ───────────────────────────────────────────────────── */
     .section { display: flex; flex-direction: column; gap: var(--sp-lg); }
@@ -147,11 +185,36 @@
       font-weight: 600;
       letter-spacing: 0.3px;
     }
-    .tag-effect { background: rgba(255,85,48,.13); color: var(--coral); }
-    .tag-font   { background: rgba(27,166,115,.13); color: var(--green); }
+    .tag-effect { background: rgba(255,85,48,.13);    color: var(--coral); }
+    .tag-font   { background: rgba(27,166,115,.13);   color: var(--green); }
+    .tag-pic    { background: rgba(99,130,255,.13);   color: #6382ff; }
+    .tag-color  { background: rgba(255,180,0,.13);    color: #c47f00; }
+    .tag-news   { background: rgba(156,0,117,.13);    color: #ff00b3; }
     .section-title    { font-size: 20px; font-weight: 600; color: var(--ink); }
     .section-subtitle { font-size: 13px; color: var(--muted); margin-left: 2px; }
     .section-divider  { height: 1px; background: var(--hairline); }
+
+    /* ── Subsection ────────────────────────────────────────────────── */
+    .subsection { display: flex; flex-direction: column; gap: var(--sp-lg); }
+    .subsection-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Card Tag ──────────────────────────────────────────────────── */
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--r-full);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .card-tag-free { background: rgba(27,166,115,.13); color: var(--green); }
+    .card-tag-paid { background: rgba(255,85,48,.13);  color: var(--coral); }
 
     /* ── Card Grid ─────────────────────────────────────────────────── */
     .card-grid {
@@ -160,7 +223,7 @@
       gap: var(--sp-lg);
     }
 
-    /* ── Card (card-base) ──────────────────────────────────────────── */
+    /* ── Card ──────────────────────────────────────────────────────── */
     .card {
       background: var(--canvas);
       border: 1px solid var(--hairline);
@@ -208,8 +271,32 @@
       color: var(--steel);
       line-height: 1.65;
     }
+    
+    .card-desc-note {
+      display: inline-block;
+      margin-top: 6px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      padding: 4px 8px;
+      border-radius: var(--r-sm);
+      font-size: 12px;
+    }
 
-    /* ── Footer (footer-region) ────────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--bar);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: opacity .3s;
+      opacity: 0;
+      z-index: 100;
+    }
+
+    /* ── Footer ────────────────────────────────────────────────────── */
     .footer {
       background: var(--footer-bg);
       padding: var(--sp-xl) var(--sp-xxl);
@@ -221,10 +308,13 @@
     .footer-right { font-size: 13px; color: var(--muted); }
 
     /* ── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .sidebar { display: none; }
+    }
     @media (max-width: 900px) {
       .hero-title { font-size: 36px; }
       .card-grid  { grid-template-columns: 1fr 1fr; }
-      .hero-inner,
+      .hero-inner { padding-left: var(--sp-xl); padding-right: var(--sp-xl); }
       .page-body  { padding-left: var(--sp-xl); padding-right: var(--sp-xl); }
     }
     @media (max-width: 600px) {
@@ -235,15 +325,21 @@
   </style>
 </head>
 <body>
-
+  <div id="progress-bar"></div>
   <!-- Promo Banner -->
   <header class="banner" role="banner">
     <div class="banner-left">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" width="12" height="12" aria-hidden="true">
+        <polygon points="14.4 29 0 29 0 14.6 14.4 29" fill="#fff"/>
+        <polygon points="29 14.6 29 29 14.6 29 29 14.6" fill="#fff"/>
+        <polygon points="29 0 29 14.4 14.6 0 29 0" fill="#fff"/>
+        <polygon points="0 14.4 14.4 0 14.4 14.4 0 14.4" fill="#fff"/>
+      </svg>
       <span class="banner-name">网站推荐</span>
       <span class="banner-dot">·</span>
       <span class="banner-sub">Website Recommendation</span>
     </div>
-    <span class="banner-num">LAST UPDATE : 26/5/8</span>
+    <span class="banner-num">LAST UPDATE : 26/5/23</span>
   </header>
 
   <!-- Hero -->
@@ -258,12 +354,12 @@
       </p>
       <div class="hero-stats" aria-label="统计数据">
         <div class="stat">
-          <span class="stat-num">17</span>
-          <span class="stat-label">tools</span>
+          <span class="stat-num" id="count-sites"></span>
+          <span class="stat-label">sites</span>
         </div>
         <div class="stat-divider" aria-hidden="true"></div>
         <div class="stat">
-          <span class="stat-num">3</span>
+          <span class="stat-num" id="count-categories"></span>
           <span class="stat-label">categories</span>
         </div>
       </div>
@@ -272,6 +368,18 @@
 
   <!-- Page Body -->
   <main class="page-body">
+
+    <!-- ── Sidebar ──────────────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="#section-effect">图像特效</a>
+        <a class="sidebar-link" href="#section-font">字体设计</a>
+        <a class="sidebar-link" href="#section-pic">免商素材</a>
+        <a class="sidebar-link" href="#section-news">设计资讯</a>
+        <a class="sidebar-link" href="#section-color">配色工具</a>
+      </nav>
+    </aside>
+
     <div class="sections">
 
       <!-- ── Section 1: 图像特效工具 ──────────────────────────────── -->
@@ -292,9 +400,7 @@
             </a>
             <div class="card-title">Gradientor</div>
             <a class="card-url" href="https://gradientor.afterimage.cc/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=gradientor.afterimage.cc&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               gradientor.afterimage.cc
             </a>
             <p class="card-desc">上传 SVG 按路径绘制渐变图形，并添加噪点纹理</p>
@@ -308,9 +414,7 @@
             </a>
             <div class="card-title">Collapse</div>
             <a class="card-url" href="https://collapse.constraint.systems/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=collapse.constraint.systems&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               collapse.constraint.systems
             </a>
             <p class="card-desc">上传图片生成像素故障风格图片，使用非常简单，看网站顶部说明就 OK</p>
@@ -324,9 +428,7 @@
             </a>
             <div class="card-title">cloud.cb</div>
             <a class="card-url" href="https://www.cloudcb.me/index.html" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=cloudcb.me&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               cloudcb.me
             </a>
             <p class="card-desc">前段时间很火的故障风图像生成网站，也是作者的艺术编程作品集，其他的也挺好玩</p>
@@ -340,12 +442,10 @@
             </a>
             <div class="card-title">Effect.app</div>
             <a class="card-url" href="https://effect.app/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=effect.app&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               effect.app
             </a>
-            <p class="card-desc">目前最好用的特效网站，导出无水印需要会员，不介意水印的可以用用看，水印也挺潮的</p>
+            <p class="card-desc">疑似是用过的最好用的特效网站，不过导出无水印需要会员，略贵，不介意水印的可以用用看，水印也挺潮的</p>
           </article>
 
           <article class="card">
@@ -356,9 +456,7 @@
             </a>
             <div class="card-title">tooooools</div>
             <a class="card-url" href="https://www.tooooools.app/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=tooooools.app&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               tooooools.app
             </a>
             <p class="card-desc">似乎是前面那个的精简版，但也很够用了，有ASCII/点阵化/CRT等常用的效果</p>
@@ -372,12 +470,24 @@
             </a>
             <div class="card-title">Sora's Pixel Converter</div>
             <a class="card-url" href="https://pixel-converter.ameniwa.com/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=pixel-converter.ameniwa.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               pixel-converter.ameniwa.com
             </a>
             <p class="card-desc">像素画转换器，颜色预设和参数调整都做得超级好</p>
+          </article>
+
+          <article class="card">
+            <a class="card-img-link" href="https://antlii.work/KLON-Tool" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img class="card-img"
+                src="images/image(17).png"
+                alt="KLON-Tool 网站截图" />
+            </a>
+            <div class="card-title">KLON-Tool</div>
+            <a class="card-url" href="https://antlii.work/KLON-Tool" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=antlii.work&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+              antlii.work/KLON-Tool
+            </a>
+            <p class="card-desc">选中图片区域进行克隆，这集不用开ps了</p>
           </article>
 
         </div>
@@ -401,9 +511,7 @@
             </a>
             <div class="card-title">hello world | metaflop</div>
             <a class="card-url" href="https://www.metaflop.com/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=metaflop.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               metaflop.com
             </a>
             <p class="card-desc">直观地编辑可变字体，编辑后的字体可以下载或运用在网站上</p>
@@ -417,9 +525,7 @@
             </a>
             <div class="card-title">Calligraphr</div>
             <a class="card-url" href="https://www.calligraphr.com/en/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=calligraphr.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               calligraphr.com
             </a>
             <p class="card-desc">制作自己的手写字体，具体操作请参照网站文档</p>
@@ -433,9 +539,7 @@
             </a>
             <div class="card-title">Glyph Drawing Club</div>
             <a class="card-url" href="https://glyphdrawing.club/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=glyphdrawing.club&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               glyphdrawing.club
             </a>
             <p class="card-desc">通过像素画的形式做字，可能需要参照官方教程：GlyphDrawing.Club -blog</p>
@@ -449,9 +553,7 @@
             </a>
             <div class="card-title">SPACE TYPE GENERATOR</div>
             <a class="card-url" href="https://spacetypegenerator.com/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=spacetypegenerator.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               spacetypegenerator.com
             </a>
             <p class="card-desc">可以生成很多种字体效果的创意编程网站，非常强大，缺点是内存占用大容易卡</p>
@@ -465,60 +567,555 @@
             </a>
             <div class="card-title">type-tools</div>
             <a class="card-url" href="https://www.type-tools.com/index.html" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
+              <img src="https://www.google.com/s2/favicons?domain=type-tools.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
               type-tools.com
             </a>
             <p class="card-desc">依旧是字体特效网站，预设比较多</p>
+          </article>
+
+          <article class="card">
+            <a class="card-img-link" href="https://www.fontbrief.com/fontbrief" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img class="card-img"
+                src="images/image(18).png"
+                alt="fontbrief 网站截图" />
+            </a>
+            <div class="card-title">FontBrief</div>
+            <a class="card-url" href="https://www.fontbrief.com/fontbrief" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=fontbrief.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+              www.fontbrief.com
+            </a>
+            <p class="card-desc">按字体性格（？）筛选字体的网站，不过大多并非免商字体，请仔细阅读版权说明！</p>
           </article>
 
         </div>
       </section>
 
       <!-- ── Section 3: 免商图片素材 ──────────────────────────────── -->
-      <section class="section" aria-labelledby="section-effect">
+      <!-- 这个 section 用了 subsection 示范二级子目，可以照这个格式自由添加 -->
+      <section class="section" aria-labelledby="section-pic">
         <div class="section-header">
-          <span class="section-tag tag-effect" aria-hidden="true">素材</span>
-          <h2 class="section-title" id="section-effect">免商图片素材</h2>
+          <span class="section-tag tag-pic" aria-hidden="true">素材</span>
+          <h2 class="section-title" id="section-pic">免商图片素材</h2>
           <span class="section-subtitle">Free Images</span>
+        </div>
+        <div class="section-divider" aria-hidden="true"></div>
+
+        <!-- 子目：图片 -->
+        <div class="subsection">
+          <div class="subsection-title">图片</div>
+          <div class="card-grid">
+
+            <article class="card">
+              <a class="card-img-link" href="https://www.cosmos.so/public-work" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(13).png"
+                  alt="public-work 网站截图" />
+              </a>
+              <div class="card-title">
+                <span class="card-tag card-tag-free">PNG</span>
+                public-work
+              </div>
+              <a class="card-url" href="https://www.cosmos.so/public-work" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=cosmos.so&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                cosmos.so/public-work
+              </a>
+              <p class="card-desc">有很多复古/博物学画作的网站，都是版权过期了进入公用领域的图片，可以免费商用，质量非常高</p>
+            </article>
+
+            <article class="card">
+              <a class="card-img-link" href="https://unsplash.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(16).png"
+                  alt="unsplash 网站截图" />
+              </a>
+              <div class="card-title">
+                <span class="card-tag card-tag-free">PNG</span>
+                Unsplash
+              </div>
+              <a class="card-url" href="https://unsplash.com/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=unsplash.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                unsplash.com
+              </a>
+              <p class="card-desc">比较著名的免商摄影网站，大多数图片是摄影师自愿开放授权上传的，质量非常高。
+                <br><span class="card-desc-note">
+                打个广告，我也有上传一些图片^^，可以搜索Auk Vane找到！请使用！</span>
+              </p>
+            </article>
+
+            <article class="card">
+              <a class="card-img-link" href="https://pixabay.com/zh/photos/search/?order=ec" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(27).png"
+                  alt="pixabay 网站截图" />
+              </a>
+              <div class="card-title">
+                <span class="card-tag card-tag-free">PNG</span>
+                pixabay.com
+              </div>
+              <a class="card-url" href="https://pixabay.com/zh/photos/search/?order=ec" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=pixabay.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                pixabay.com
+              </a>
+              <p class="card-desc">依旧经典免商图片网</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- 子目：3D素材 -->
+        <div class="subsection">
+          <div class="subsection-title">3D素材</div>
+          <div class="card-grid">
+
+            <article class="card">
+              <a class="card-img-link" href="https://www.shutterstock.com/zh/3d-objects" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(28).png"
+                  alt="shutterstock 3d 网站截图" />
+              </a>
+              <div class="card-title">hihayk.github.io</div>
+              <a class="card-url" href="https://www.shutterstock.com/zh/3d-objects" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=shutterstock.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                hihayk.github.io
+              </a>
+              <p class="card-desc">提供了一些3d素材，可以旋转拍照</p>
+            </article>
+
+            <article class="card">
+              <a class="card-img-link" href="https://www.ls.graphics/products/bzzzt" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(31).png"
+                  alt="ls 网站截图" />
+              </a>
+              <div class="card-title">ls.graphics</div>
+              <a class="card-url" href="https://www.ls.graphics/products/bzzzt" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=ls.graphics&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                ls.graphics
+              </a>
+              <p class="card-desc">3d抽象图像素材包</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- 子目：游戏美术 -->
+        <div class="subsection">
+          <div class="subsection-title">游戏美术</div>
+          <div class="card-grid">
+
+            <article class="card">
+              <a class="card-img-link" href="https://kenney.nl/assets" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(30).png"
+                  alt="kenney 网站截图" />
+              </a>
+              <div class="card-title">kenney.nl</div>
+              <a class="card-url" href="https://kenney.nl/assets" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=kenney.nl&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                kenney.nl
+              </a>
+              <p class="card-desc">免费的游戏美术资源</p>
+            </article>
+
+            <article class="card">
+              <a class="card-img-link" href="https://elements.envato.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <img class="card-img"
+                  src="images/image(29).png"
+                  alt="elements 网站截图" />
+              </a>
+              <div class="card-title">elements.envato.com</div>
+              <a class="card-url" href="https://elements.envato.com/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=elements.envato.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                elements.envato.com
+              </a>
+              <p class="card-desc">什么都有，但是有的要收费</p>
+            </article>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── Section 4: 配色工具 ───────────────────────────────────── -->
+        <section class="section" aria-labelledby="section-news">
+        <div class="section-header">
+          <span class="section-tag tag-news" aria-hidden="true">资讯</span>
+          <h2 class="section-title" id="section-news">审美积累</h2>
+          <span class="section-subtitle">Design Reference</span>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-title">综合资讯</div>
+          <div class="card-grid">
+            <article class="card">
+                        <a class="card-img-link" href="https://app.usepanda.com/#/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(35).png"
+                            alt="app 网站截图" />
+                        </a>
+                        <div class="card-title">PANDAS</div>
+                        <a class="card-url" href="https://app.usepanda.com/#/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=app.usepanda.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          app.usepanda.com
+                        </a>
+                        <p class="card-desc">一个资讯整合网站，可以快速查看各大设计社区的当日热点</p>
+                      </article>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-title">平面 · 插画</div>
+          <div class="card-grid">
+            <article class="card">
+                        <a class="card-img-link" href="https://www.itsnicethat.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(33).png"
+                            alt="itsnicethat 网站截图" />
+                        </a>
+                        <div class="card-title"><span class="card-tag card-tag-free">GRAPHIC</span>itsnicethat</div>
+                        <a class="card-url" href="https://www.itsnicethat.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=itsnicethat.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          itsnicethat.com
+                        </a>
+                        <p class="card-desc"></p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://brestbrestbrest.fr/fr" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(100).png"
+                            alt="brestbrestbrest 网站截图" />
+                        </a>
+                        <div class="card-title">
+                        <span class="card-tag card-tag-free">GRAPHIC</span>
+                         brestbrestbrest.fr</div>
+                        <a class="card-url" href="https://brestbrestbrest.fr/fr" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=brestbrestbrest.fr&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          brestbrestbrest.fr
+                        </a>
+                        <p class="card-desc">lorem ipsum</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://organicamagazine.tumblr.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(39).png"
+                            alt="organicamagazine 网站截图" />
+                        </a>
+                        <div class="card-title"><span class="card-tag card-tag-free">photos</span>organicamagazine</div>
+                        <a class="card-url" href="https://organicamagazine.tumblr.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=organicamagazine.tumblr.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          organicamagazine.tumblr.com
+                        </a>
+                        <p class="card-desc">LOREM IPSUM</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://themovingposter.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(40).png"
+                            alt="themovingposter 网站截图" />
+                        </a>
+                        <div class="card-title"><span class="card-tag card-tag-free">GRAPHIC</span>themovingposter.com</div>
+                        <a class="card-url" href="https://themovingposter.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=themovingposter.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          themovingposter.com
+                        </a>
+                        <p class="card-desc">动态海报</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://anothergraphic.org" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(12).png"
+                            alt="anothergraphic 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">GRAPHICS</span>anothergraphic</div>
+                        <a class="card-url" href="https://anothergraphic.org" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=anothergraphic.org&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          anothergraphic.org
+                        </a>
+                        <p class="card-desc">LOREM IPSUM</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://savee.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(43).png"
+                            alt="savee 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">GRAPHICS</span>savee.com</div>
+                        <a class="card-url" href="https://savee.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=savee.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          savee.com
+                        </a>
+                        <p class="card-desc">Lorem Ipsum</p>
+                      </article>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-title">字体应用</div>
+          <div class="card-grid">
+            <article class="card">
+                        <a class="card-img-link" href="https://fontsinuse.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(34).png"
+                            alt="fontsinuse 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">fonts</span>fonts in use</div>
+                        <a class="card-url" href="https://fontsinuse.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=fontsinuse.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          fontsinuse.com
+                        </a>
+                        <p class="card-desc">字体的应用典例，比如上面这个是美国精神病人中名片桥段的分析</p>
+                      </article>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-title">网页设计</div>
+          <div class="card-grid">
+            <article class="card">
+                        <a class="card-img-link" href="https://land-book.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(32).png"
+                            alt="land-book 网站截图" />
+                        </a>
+                        <div class="card-title"><span class="card-tag card-tag-free">web</span>land-book</div>
+                        <a class="card-url" href="https://land-book.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=land-book.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          land-book.com
+                        </a>
+                        <p class="card-desc"></p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://minimal.gallery" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(42).png"
+                            alt="minimal 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">web</span><span class="card-tag card-tag-free">UI/UX</span>Minimal gallery</div>
+                        <a class="card-url" href="https://minimal.gallery" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=minimal.gallery&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          minimal.gallery
+                        </a>
+                        <p class="card-desc">LOREM IPSUM</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://www.awwwards.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(46).png"
+                            alt="awwwards 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">web</span>awwwards</div>
+                        <a class="card-url" href="https://www.awwwards.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=awwwards.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          awwwards.com
+                        </a>
+                        <p class="card-desc">经典得不能再经典的优秀网页设计案例库</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://www.siteinspire.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(45).png"
+                            alt="siteinspire 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">web</span>Siteinspire</div>
+                        <a class="card-url" href="https://www.siteinspire.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=siteinspire.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          siteinspire.com
+                        </a>
+                        <p class="card-desc">网页设计</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://httpster.net/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(44).png"
+                            alt="httpster 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">web</span>Httpster</div>
+                        <a class="card-url" href="https://httpster.net/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=httpster.net&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          httpster.net
+                        </a>
+                        <p class="card-desc">网页设计</p>
+                      </article>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-title">UI / UX</div>
+          <div class="card-grid">
+            <article class="card">
+                        <a class="card-img-link" href="https://dribbble.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(38).png"
+                            alt="dribbble 网站截图" />
+                        </a>
+                        <div class="card-title"><span class="card-tag card-tag-free">UI/UX</span>dribbble.com</div>
+                        <a class="card-url" href="https://dribbble.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=dribbble.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          dribbble.com
+                        </a>
+                        <p class="card-desc">lorem ipsum</p>
+                      </article>
+
+            <article class="card">
+                        <a class="card-img-link" href="https://bestdesignsonx.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                          <img class="card-img"
+                            src="images/image(41).png"
+                            alt="bestdesignsonx 网站截图" />
+                        </a>
+                                <div class="card-title"><span class="card-tag card-tag-free">UI/UX</span>bestdesignsonx.com</div>
+                        <a class="card-url" href="https://bestdesignsonx.com/" target="_blank" rel="noopener">
+                          <img src="https://www.google.com/s2/favicons?domain=bestdesignsonx.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+                          bestdesignsonx.com
+                        </a>
+                        <p class="card-desc">黑叉上的优秀设计案例，不过更多是ui/ux</p>
+                      </article>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── Section 5: 设计资讯 ───────────────────────────────────── -->
+      <section class="section" aria-labelledby="section-color">
+        <div class="section-header">
+          <span class="section-tag tag-color aria-hidden="true">颜色</span>
+          <h2 class="section-title" id="section-color">配色工具</h2>
+          <span class="section-subtitle">Color Palette</span>
         </div>
         <div class="section-divider" aria-hidden="true"></div>
         <div class="card-grid">
 
-          <article class="card">
-            <a class="card-img-link" href="https://www.cosmos.so/public-work" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-              <img class="card-img"
-                src="images/image(13).png"
-                alt="public-work 网站截图" />
-            </a>
-            <div class="card-title">public-work</div>
-            <a class="card-url" href="https://www.cosmos.so/public-work" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
-              cosmos.so/public-work
-            </a>
-            <p class="card-desc">有很多复古/博物学画作的网站，都是版权过期了进入公用领域的图片，可以免费商用，质量非常高</p>
-          </article>
+        <article class="card">
+          <a class="card-img-link" href="https://colorhunt.co/palettes/popular" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(20).png"
+              alt="https://colorhunt 网站截图" />
+          </a>
+          <div class="card-title">colorhunt</div>
+          <a class="card-url" href="https://colorhunt.co/palettes/popular" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=colorhunt.co&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            https://colorhunt.co/palettes/popular
+          </a>
+          <p class="card-desc">最好用</p>
+        </article>
 
-          <article class="card">
-            <a class="card-img-link" href="https://unsplash.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-              <img class="card-img"
-                src="images/image(16).png"
-                alt="unsplash 网站截图" />
-            </a>
-            <div class="card-title">Unsplash</div>
-            <a class="card-url" href="https://unsplash.com/" target="_blank" rel="noopener">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
-              </svg>
-              unsplash.com
-            </a>
-            <p class="card-desc">比较著名的免商摄影网站，大多数图片是摄影师自愿开放免商授权上传的！质量非常高。
-              <br>btw，我也有上传一些图片^^，可以搜索Auk Vane找到~请使用！</br>
-            </p>
-          </article>
+        <article class="card">
+          <a class="card-img-link" href="https://mycolor.space/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(21).png"
+              alt="mycolor 网站截图" />
+          </a>
+          <div class="card-title">mycolor.space</div>
+          <a class="card-url" href="https://mycolor.space/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=mycolor.space&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            mycolor.space
+          </a>
+          <p class="card-desc">也很常用，输入色号可以获得相邻色/互补色/灰度渐变等常见搭配</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://huemint.com/brand-intersection/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(19).png"
+              alt="huemint 网站截图" />
+          </a>
+          <div class="card-title">huemint</div>
+          <a class="card-url" href="https://huemint.com/brand-intersection/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=huemint.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            huemint.com
+          </a>
+          <p class="card-desc">排版很漂亮的配色工具，以及可以上传图片提取主要颜色</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://hihayk.github.io/scale/#4/6/86/80/-51/67/20/14/1D9A6C/29/154/108/white" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(26).png"
+              alt="huemint 网站截图" />
+          </a>
+          <div class="card-title">hihayk-scale</div>
+          <a class="card-url" href="https://hihayk.github.io/scale/#4/6/86/80/-51/67/20/14/1D9A6C/29/154/108/white" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=hihayk.github.io&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            huemint.com
+          </a>
+          <p class="card-desc">生成相邻色</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://colorleap.app/home" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(23).png"
+              alt="colorleap 网站截图" />
+          </a>
+          <div class="card-title">colorleap</div>
+          <a class="card-url" href="https://colorleap.app/home" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=colorleap.app&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            colorleap.app
+          </a>
+          <p class="card-desc">查看历史上各个年代的流行配色，感觉适合做特定的风格</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://connect.pantone.com/?utm_source=pantonecn.com&utm_medium=web&utm_campaign=pantone-connect&utm_content=%E5%85%8D%E8%B4%B9%E8%AF%95%E7%94%A8#/picker" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(25).png"
+              alt="connect 网站截图" />
+          </a>
+          <div class="card-title">pantone</div>
+          <a class="card-url" href="https://connect.pantone.com/?utm_source=pantonecn.com&utm_medium=web&utm_campaign=pantone-connect&utm_content=%E5%85%8D%E8%B4%B9%E8%AF%95%E7%94%A8#/picker" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=connect.pantone.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            connect.pantone.com
+          </a>
+          <p class="card-desc">pantone取色器，不考虑印刷的话免费版算是够用</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://grabient.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(36).png"
+              alt="grabient 网站截图" />
+          </a>
+          <div class="card-title">Grabient</div>
+          <a class="card-url" href="https://grabient.com/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=grabient.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            grabient.com
+          </a>
+          <p class="card-desc">渐变色配色方案</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://webkul.github.io/coolhue/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(37).png"
+              alt="webkul 网站截图" />
+          </a>
+          <div class="card-title">coolhue</div>
+          <a class="card-url" href="https://webkul.github.io/coolhue/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=webkul.github.io&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            webkul.github.io
+          </a>
+          <p class="card-desc">依旧渐变配色方案，figma有插件</p>
+        </article>
+
+        <article class="card">
+          <a class="card-img-link" href="https://flatuicolors.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+            <img class="card-img"
+              src="images/image(24).png"
+              alt="flatuicolors 网站截图" />
+          </a>
+          <div class="card-title">flatuicolors</div>
+          <a class="card-url" href="https://flatuicolors.com/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=flatuicolors.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+            flatuicolors.com
+          </a>
+          <p class="card-desc">ui配色方案</p>
+        </article>
+
+
 
         </div>
       </section>
@@ -528,9 +1125,47 @@
 
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
-    <span class="footer-left">Website for Designers</form></span>
+    <span class="footer-left">Website for Designers</span>
     <span class="footer-right">@ElevatingCretaceous 2026 All Rights Reserved</span>
   </footer>
+
+  <script>
+    const links = document.querySelectorAll('.sidebar-link');
+    const sections = document.querySelectorAll('.section[aria-labelledby]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.querySelector('[id]')?.id;
+          links.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // 进度条
+    const bar = document.getElementById('progress-bar');
+    const hero = document.querySelector('.hero');
+
+    window.addEventListener('scroll', () => {
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      const scrolled = window.scrollY;
+      const total = document.body.scrollHeight - window.innerHeight;
+
+      bar.style.opacity = scrolled > heroBottom ? '1' : '0';
+      bar.style.transform = `scaleX(${scrolled / total})`;
+    }, { passive: true });
+
+    // 自动统计
+    document.getElementById('count-sites').textContent =
+      document.querySelectorAll('article.card').length;
+
+    document.getElementById('count-categories').textContent =
+      document.querySelectorAll('section.section').length;
+  </script>
 
 </body>
 </html>
