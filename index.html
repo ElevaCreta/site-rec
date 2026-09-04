@@ -323,6 +323,7 @@
       .banner { padding: var(--sp-sm) var(--sp-md); }
     }
   </style>
+
 </head>
 <body>
   <div id="progress-bar"></div>
@@ -339,7 +340,7 @@
       <span class="banner-dot">·</span>
       <span class="banner-sub">Website Recommendation</span>
     </div>
-    <span class="banner-num">LAST UPDATE : 26/8/24</span>
+    <span class="banner-num">LAST UPDATE : 26/9/4</span>
   </header>
 
   <!-- Hero -->
@@ -370,7 +371,7 @@
   <!-- Page Body -->
   <main class="page-body">
 
-    <!-- ── Sidebar ──────────────────────────────────────────────────── -->
+    <!--Sidebar ──────────────────────────────────────────────────── -->
     <aside class="sidebar">
       <nav class="sidebar-nav">
         <a class="sidebar-link" href="#section-effect">图像特效</a>
@@ -383,7 +384,7 @@
 
     <div class="sections">
 
-      <!-- ── Section 1: 图像特效工具 ──────────────────────────────── -->
+      <!--Section 1: 图像处理 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── -->
       <section class="section" aria-labelledby="section-effect">
         <div class="section-header">
           <span class="section-tag tag-effect" aria-hidden="true">特效</span>
@@ -522,7 +523,7 @@
         </div>
       </section>
 
-      <!-- ── Section 2: 字体设计工具 ──────────────────────────────── -->
+      <!-- ── Section 2: 字体设计工具 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── -->
       <section class="section" aria-labelledby="section-font">
         <div class="section-header">
           <span class="section-tag tag-font" aria-hidden="true">字体</span>
@@ -617,8 +618,7 @@
         </div>
       </section>
 
-      <!-- ── Section 3: 素材网站 ──────────────────────────────── -->
-      <!--用了 subsection 示范二级子目，可以照这个格式自由添加 -->
+      <!-- ── Section 3: 素材网站 ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── -->
       <section class="section" aria-labelledby="section-pic">
         <div class="section-header">
           <span class="section-tag tag-pic" aria-hidden="true">素材</span>
@@ -628,6 +628,9 @@
         <div class="section-divider" aria-hidden="true"></div>
 
         <!-- 子目：图片 -->
+         <!--用了 subsection 示范二级子目 -->
+        <!--(1) 图片免商-->
+
         <div class="subsection">
           <div class="subsection-title">图片（免商）</div>
           <div class="card-grid">
@@ -731,6 +734,7 @@
           </div>
         </div>
 
+        <!--(2)图片付费-->
           <div class="subsection">
           <div class="subsection-title">图片（付费）</div>
           <div class="card-grid">
@@ -778,9 +782,11 @@
           </div>
         </div>
 
+        <!--(3) 字体免商-->
         <div class="subsection">
           <div class="subsection-title">字体(免商)</div>
           <div class="card-grid">
+
             <article class="card">
               <a class="card-img-link" href="https://fonts.google.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
                 <img class="card-img" src="images/image(68).webp" alt="fonts 网站截图" />
@@ -855,6 +861,7 @@
           </div>
         </div>
 
+        <!--(4) 字体付费-->
           <div class="subsection">
           <div class="subsection-title">字体(付费)</div>
           <div class="card-grid">
@@ -887,7 +894,7 @@
           </div>
         </div>
 
-        <!-- 子目：3D素材 -->
+        <!--(5) 3D素材-->
         <div class="subsection">
           <div class="subsection-title">3D素材</div>
           <div class="card-grid">
@@ -978,7 +985,7 @@
           </div>
         </div>
 
-        <!-- 子目：游戏美术 -->
+        <!--(6) 游戏美术-->
         <div class="subsection">
           <div class="subsection-title">游戏美术</div>
           <div class="card-grid">
@@ -1002,7 +1009,7 @@
 
       </section>
 
-      <!-- ── Section 4:───────────────────────────────────── -->
+      <!-- ── Section 4:───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── -->
         <section class="section" aria-labelledby="section-news">
         <div class="section-header">
           <span class="section-tag tag-news" aria-hidden="true">资讯</span>
@@ -1355,7 +1362,7 @@
         </div>
       </section>
 
-      <!-- ── Section 5: ───────────────────────────────────── -->
+      <!-- ── Section 5: ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── -->
       <section class="section" aria-labelledby="section-color">
         <div class="section-header">
           <span class="section-tag tag-color aria-hidden="true">颜色</span>
@@ -1522,7 +1529,7 @@
 
     sections.forEach(s => observer.observe(s));
 
-    // 进度条
+    /*进度条*/
     const bar = document.getElementById('progress-bar');
     const hero = document.querySelector('.hero');
 
@@ -1535,7 +1542,7 @@
       bar.style.transform = `scaleX(${scrolled / total})`;
     }, { passive: true });
 
-    // 自动统计
+    /*自动统计*/
     document.getElementById('count-sites').textContent =
       document.querySelectorAll('article.card').length;
 
@@ -1550,6 +1557,8 @@
 </button>
 
 <style>
+
+/*回顶*/
 #back-to-top {
   position: fixed;
   right: 24px;
