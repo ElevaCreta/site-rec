@@ -299,13 +299,64 @@
     /* ── Footer ────────────────────────────────────────────────────── */
     .footer {
       background: var(--footer-bg);
-      padding: var(--sp-xl) var(--sp-xxl);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: var(--sp-sec-sm) var(--sp-md) var(--sp-xl);
     }
-    .footer-left  { font-size: 13px; color: var(--muted); }
-    .footer-right { font-size: 13px; color: var(--muted); }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-xl);
+    }
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-xxl);
+      flex-wrap: wrap;
+    }
+    .footer-left  { font-size: 13px; line-height: 1.8; color: var(--muted); }
+    .footer-left::first-line { font-size: 16px; font-weight: 600; color: var(--on-dark); line-height: 2; }
+    .footer-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-xs);
+    }
+    .footer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--on-dark);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--r-full);
+      background: rgba(255,255,255,.04);
+      transition: background .15s, border-color .15s, color .15s, transform .15s;
+    }
+    .footer-btn svg { flex-shrink: 0; opacity: .85; }
+    .footer-btn:hover {
+      background: var(--on-dark);
+      border-color: var(--on-dark);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .footer-btn:hover svg { opacity: 1; }
+    .footer-btn:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+    .footer-bottom {
+      padding-top: var(--sp-xl);
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-right { display: block; font-size: 12px; line-height: 1.8; color: var(--muted); }
+    @media (max-width: 900px) {
+      .footer { padding-left: var(--sp-xl); padding-right: var(--sp-xl); }
+    }
+    @media (max-width: 600px) {
+      .footer { padding-top: var(--sp-xxxl); }
+      .footer-top { flex-direction: column; gap: var(--sp-lg); }
+    }
 
     /* ── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -340,7 +391,7 @@
       <span class="banner-dot">·</span>
       <span class="banner-sub">Website Recommendation</span>
     </div>
-    <span class="banner-num">LAST UPDATE : 26/9/6</span>
+    <span class="banner-num">LAST UPDATE : 26/10/21</span>
   </header>
 
   <!-- Hero -->
@@ -490,6 +541,19 @@
               antlii.work/KLON-Tool
             </a>
             <p class="card-desc">选中图片区域进行克隆</p>
+          </article>
+
+          <article class="card">
+            <a class="card-img-link" href="https://www.ascii-magic.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img class="card-img" src="images/image(101).webp" alt="ascii-magic 网站截图" />
+            </a>
+            <div class="card-title"><span class="card-tag card-tag-free">支持视频</span>ascii magic</div>
+            <a class="card-url" href="https://www.ascii-magic.com/" target="_blank" rel="noopener">
+              <img src="https://www.google.com/s2/favicons?domain=ascii-magic.com&sz=32" width="13" height="13" style="border-radius:2px;vertical-align:-1px;flex-shrink:0" alt="" aria-hidden="true" />
+              ascii-magic.com
+            </a>
+            <p class="card-desc">ascii/点阵化/像素画/马赛克，支持视频，有些要付费<br>
+          ⚠部分功能涉及AI，请仔细阅读说明</p>
           </article>
 
           <article class="card">
@@ -1707,8 +1771,32 @@
 
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
-    <span class="footer-left">Website for Designers<br>Built with HTML/CSS · shadcn/ui · FFmpeg · Deployed on GitHub Pages</span>
-    <span class="footer-right">@ElevatingCretaceous 2026<br>Content and images belong to their respective owners.</span>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-left">Website for Designers<br>Built with HTML/CSS · shadcn/ui · FFmpeg · Deployed on GitHub Pages</span>
+        <nav class="footer-contact" aria-label="联系方式">
+          <a class="footer-btn" href="mailto:aukvaner@gmail.com" aria-label="邮箱">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+            邮箱
+          </a>
+          <a class="footer-btn" href="https://github.com/ElevaCreta" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+            GitHub
+          </a>
+         <a class="footer-btn" href="https://www.weibo.com/u/7913108280" target="_blank" rel="noopener" aria-label="小红书">
+            <svg t="1792575598964" class="icon" viewBox="0 0 1138 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10893" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M914.432 518.144q27.648 21.504 38.912 51.712t9.216 62.976-14.336 65.536-31.744 59.392q-34.816 48.128-78.848 81.92t-91.136 56.32-94.72 35.328-89.6 18.944-75.264 7.68-51.712 1.536-49.152-2.56-68.096-10.24-78.336-21.504-79.872-36.352-74.24-55.296-59.904-78.848q-16.384-29.696-22.016-63.488t-5.632-86.016q0-22.528 7.68-51.2t27.136-63.488 53.248-75.776 86.016-90.112q51.2-48.128 105.984-85.504t117.248-57.856q28.672-10.24 63.488-11.264t57.344 11.264q10.24 11.264 19.456 23.04t12.288 29.184q3.072 14.336 0.512 27.648t-5.632 26.624-5.12 25.6 2.048 22.528q17.408 2.048 33.792-1.536t31.744-9.216 31.232-11.776 33.28-9.216q27.648-5.12 54.784-4.608t49.152 7.68 36.352 22.016 17.408 38.4q2.048 14.336-2.048 26.624t-8.704 23.04-7.168 22.016 1.536 23.552q3.072 7.168 14.848 13.312t27.136 12.288 32.256 13.312 29.184 16.384zM656.384 836.608q26.624-16.384 53.76-45.056t44.032-64 18.944-75.776-20.48-81.408q-19.456-33.792-47.616-57.344t-62.976-37.376-74.24-19.968-80.384-6.144q-78.848 0-139.776 16.384t-105.472 43.008-72.192 60.416-38.912 68.608q-11.264 33.792-6.656 67.072t20.992 62.976 42.496 53.248 57.856 37.888q58.368 25.6 119.296 32.256t116.224 0.512 100.864-21.504 74.24-33.792zM522.24 513.024q20.48 8.192 38.912 18.432t32.768 27.648q10.24 12.288 17.92 30.72t10.752 39.424 1.536 42.496-9.728 38.912q-8.192 18.432-19.968 37.376t-28.672 35.328-40.448 29.184-57.344 18.944q-61.44 11.264-117.76-11.264t-88.064-74.752q-12.288-39.936-13.312-70.656t16.384-66.56q13.312-27.648 40.448-51.712t62.464-38.912 75.264-17.408 78.848 12.8zM359.424 764.928q37.888 3.072 57.856-18.432t21.504-48.128-15.36-47.616-52.736-16.896q-27.648 3.072-43.008 23.552t-17.408 43.52 9.728 42.496 39.424 21.504zM778.24 6.144q74.752 0 139.776 19.968t113.664 57.856 76.288 92.16 27.648 122.88q0 33.792-16.384 50.688t-35.328 17.408-35.328-14.336-16.384-45.568q0-40.96-22.528-77.824t-59.392-64.512-84.48-43.52-96.768-15.872q-31.744 0-47.104-15.36t-14.336-34.304 18.944-34.304 51.712-15.36zM778.24 169.984q95.232 0 144.384 48.64t49.152 146.944q0 30.72-10.24 43.52t-22.528 11.264-22.528-14.848-10.24-35.84q0-60.416-34.816-96.256t-93.184-35.84q-19.456 0-28.672-10.752t-9.216-23.04 9.728-23.04 28.16-10.752z" p-id="10894"></path></svg>
+            微博
+          </a>
+          <a class="footer-btn" href="https://www.xiaohongshu.com/user/profile/67378248000000001c018529" target="_blank" rel="noopener" aria-label="小红书">
+            <svg t="1792575565417" class="icon" viewBox="0 0 1614 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5733" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1077.76 271.714v97.714h-64.59v312.635h80.738c16.147 0 20.204 7.877 24.3 23.512 4.057 78.179 4.057 78.179-68.647 78.179H746.81c20.244-35.21 32.295-66.481 52.5-93.814 4.096-3.939 16.147-7.877 28.2-7.877h80.698V369.428h-64.59v-97.674h234.141zM742.754 682.22c-20.243 35.21-32.295 62.543-48.443 93.775-4.056 3.939-12.051 11.697-16.147 11.697H524.76c20.243-39.148 40.448-74.2 52.5-101.69h165.493v-3.782z m585.256-445.715c-4.096 27.293 8.152 35.21 36.352 39.148 80.66 0 121.108 42.93 125.204 121.305v66.441c64.55-3.938 104.999 23.552 125.203 74.201v175.892c-32.295 62.503-64.59 78.139-133.199 70.42-44.307-7.878-68.608-31.272-76.603-82.078h80.7c16.147 0 24.3-3.939 24.3-23.552v-78.179c0-23.512-12.052-35.21-36.352-35.21h-145.25v218.86h-105V560.956H1118.01V459.264h100.903v-86.055h-68.647v-97.753c20.244 0 44.347-3.938 68.647-3.938v-35.21h109.096v0.197z m-1009.152 0V689.94c0 66.48-44.308 97.752-104.96 89.836-40.448-7.877-64.59-35.21-64.59-82.078h68.646V236.505h100.904zM141.39 377.147c-4.096 31.271-8.153 58.565-8.153 89.836v27.333c-4.096 82.078-12.052 164.234-68.647 242.334-20.205-35.21-40.448-70.42-60.456-105.433C0 627.28 0 623.301 0 615.582 8.153 584.31 16.148 549.1 20.204 513.89c4.096-42.929 8.192-89.836 12.091-136.9h109.056v0.157z m355.249-3.741c4.057 62.503 4.057 125.046 16.148 183.768 16.108 66.481-8.192 121.305-44.347 175.892-48.443-42.93-76.643-168.172-76.643-355.722H496.64v-3.938z m266.358-136.901c-24.3 50.806-52.5 97.713-72.704 144.62 44.308-3.939 80.7-3.939 125.204-7.877-24.3 46.868-44.347 86.016-68.648 128.945-4.056 3.939-4.056 11.697-8.152 15.636-24.3 42.93-24.3 42.93 28.2 42.93h20.204c-12.052 27.332-24.3 50.884-40.448 74.2-4.057 3.938-8.153 7.916-12.052 7.916h-44.308c-20.244 0-44.347 0-64.59-3.938-28.16-3.939-36.313-23.552-24.262-46.868 12.052-31.271 28.2-58.604 40.41-89.876 4.095-11.658 8.191-19.574 16.147-35.21h-48.443c-44.308 0-56.557-19.574-40.409-58.565 24.3-54.784 56.596-113.348 88.852-171.913h105z m564.972 132.923v74.2c0 3.939 12.092 15.636 16.148 15.636 12.052 0 36.352-3.938 36.352-7.877 4.096-23.552 4.096-46.907-4.056-70.459 0-7.522-24.3-7.522-48.444-11.5z m286.602-62.504v31.272c-24.3 39.148-60.455 39.148-100.903 35.21-12.052-50.846-4.057-82.117 24.3-93.815 28.2-15.793 48.246-3.938 76.603 27.333z" fill="#999999" p-id="5734"></path></svg>
+            小红书
+          </a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-right">@ElevatingCretaceous 2026<br>Content and images belong to their respective owners.</span>
+      </div>
+    </div>
   </footer>
 
   <script>
